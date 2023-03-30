@@ -1,0 +1,52 @@
+import styled from "styled-components";
+
+export const Container = styled.ul`
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
+    list-style-type: none;
+`
+
+export const Page = styled.li`
+    display: flex;
+    height: 48px;
+    width: 48px;
+    font-size: 24px;
+    border-radius: 48px;
+    margin: 5px;
+    color: #c1f762;
+    justify-content: center;
+    align-items: center;
+    &:hover{
+        background-color: #c1f762;
+        color: white;
+        cursor: pointer;
+    }
+`
+
+export const CurrentPage = styled.li`
+    display: flex;
+    height: 48px;
+    width: 48px;
+    font-size: 24px;
+    border-radius: 48px;
+    margin: 5px;
+    background-color: #c1f762;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+`
+
+export const DisabledPage = styled.li`
+    display: flex;
+    height: 48px;
+    width: 48px;
+    font-size: 24px;
+    border-radius: 48px;
+    margin: 5px;
+    color: gray;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+`
