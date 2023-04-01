@@ -2,26 +2,40 @@ import characterService from "../../services/CharacterServicce";
 import { useEffect, useState } from "react";
 import CharacterCard from "../../components/CharacterCard/Index";
 import Pagination from "../../components/Pagination/Index";
-import { Container, CharactersList } from "./Style";
+import SearchBar from "../../components/SearchBar/Index";
+import { Container, CharactersList, Header } from "./Style";
+import Loading from "../../components/Loading/Index";
+import Dropdown from "../../components/Dropdown/Index";
+
+interface Filters {
+    type: string;
+    filter: string;
+}
 
 const HomePage = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [data, setData] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number>(0);
+    const [searchedWord, setSearchedWord] = useState<string>('');
+    const [searchButton, setSearchButton] = useState<boolean>(false);
+    const [filters, setFilters] = useState<Filters[]>([]);
 
-    const getCharactersHandle = async () => {
-        const characters = await characterService.getCharacters('33');
+    const getCharactersHandle = async (page: string) => {
+        setIsLoading(true);
+        const characters = await characterService.getCharacters(page);
         setData(characters.characters);
+        setTotalPages(characters.pages);
         setIsLoading(false);
     }
 
     useEffect(() => {
-        getCharactersHandle();
-    }, [])
+        getCharactersHandle(currentPage.toString());
+    }, [currentPage])
 
     const logCharacters = () => {
-        console.log(data);
+        console.log(searchedWord);
     }
 
     const renderCards = () => {
@@ -41,13 +55,33 @@ const HomePage = () => {
             />
         ));
     }
+
+    const activateButton = () => {
+        if (filters.length === 0 && searchedWord === '') {
+            setSearchButton(false);
+        } else {
+            setSearchButton(true);
+        }
+    }
+
+    useEffect(() => {
+        activateButton()
+    }, [filters, searchedWord]);
+    
     return (
         <Container>
-            <h1> Hello, world!</h1 >
-            <CharactersList>
-                {renderCards()}
-            </CharactersList>
-            <Pagination currentPage={currentPage} total={42} onPageChange={(page) => { setCurrentPage(page) }} />
+            <Header>
+                <Dropdown label="Filtrar" options={['Status', 'Espécie', 'Tipo', 'Gênero']} onSelect={logCharacters}></Dropdown>
+                <SearchBar setSearchedWord={setSearchedWord} buttonFunction={logCharacters} active={searchButton} />
+            </Header>
+            {isLoading ? <Loading /> : (
+                <>
+                    <CharactersList>
+                        {renderCards()}
+                    </CharactersList>
+                    <Pagination currentPage={currentPage} total={42} onPageChange={(page) => { setCurrentPage(page) }} />
+                </>)
+            }
         </Container>
     )
 }

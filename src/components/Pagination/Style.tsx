@@ -12,13 +12,14 @@ export const Page = styled.li`
     height: 48px;
     width: 48px;
     font-size: 24px;
+    font-weight: bolder;
     border-radius: 48px;
     margin: 5px;
-    color: #c1f762;
+    color: #39ff14;;
     justify-content: center;
     align-items: center;
     &:hover{
-        background-color: #c1f762;
+        background-color: #39ff14;
         color: white;
         cursor: pointer;
     }
@@ -29,9 +30,10 @@ export const CurrentPage = styled.li`
     height: 48px;
     width: 48px;
     font-size: 24px;
+    font-weight: bolder;
     border-radius: 48px;
     margin: 5px;
-    background-color: #c1f762;
+    background-color: #39ff14;;
     color: white;
     justify-content: center;
     align-items: center;

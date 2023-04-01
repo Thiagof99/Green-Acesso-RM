@@ -39,7 +39,7 @@ class CharacterService extends ApiRequest {
             for (let character of Array.from(response.data.results)) {
                 characters.push(Character.factoryCharacter(character));
             }
-            return { 'characters': characters };
+            return { 'characters': characters, 'pages': response.data.pages };
         } catch (error) {
             const apiResponse = ApiResponse.factoryApiResponse(error as any);
             throw apiResponse.error;
