@@ -1,4 +1,4 @@
 import { ReactNode } from "react";
 
-export type IconsTypes  = ReactNode & 'block' | 'sports_bar' | 'lock_open' | 'info' | 'schedule' | 'school' | 'flag' | 'logout' | 'expand_more' | 'segment' | 'filter_list' | 'search' | '❤' | 'delete' | 'account_circle';
+export type IconsTypes  = ReactNode & 'block' | 'lock_open' | 'info' | 'expand_more' | 'segment' | 'filter_list' | 'search' | '❤' | 'delete' | 'arrow_back';
 

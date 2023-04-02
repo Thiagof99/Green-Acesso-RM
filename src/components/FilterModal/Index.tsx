@@ -39,11 +39,11 @@ const FilterModal = ({
             window.alert('Digite o filtro desejado para que possa adicioná-lo');
             return false;
         }
-        if (headerText === 'Status' && !validateStatus(inputValue)) {
+        if (headerText === 'Status' && !validateStatus(inputValue.toLowerCase())) {
             setInvalid(true);
             showInfo();
             return false;
-        } else if (headerText === 'Gênero' && !validateGender(inputValue)) {
+        } else if (headerText === 'Gênero' && !validateGender(inputValue.toLowerCase())) {
             setInvalid(true);
             showInfo();
             return false;

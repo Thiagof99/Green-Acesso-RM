@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { colors } from "../../styles/colors";
 import Icon from "../Icon/Icon";
-import { Option, Container, OptionsContainer, Label } from "./Style";
+import { Option, Container, OptionsContainer, Label, BodyOutline } from "./Style";
 
 interface DropdownInterface {
     label: string;
@@ -27,21 +27,23 @@ const Dropdown = ({ label, options, width, onSelect }: DropdownInterface) => {
     }
 
     return (
-        <Container onClick={() => setOpen(!open)}>
+        <BodyOutline>
+            <Container onClick={() => setOpen(!open)}>
 
-            <Label>{label}</Label>
-            <Icon
-                icon={'expand_more'}
-                size={'40px'}
-                color={colors.white}
-            />
+                <Label>{label}</Label>
+                <Icon
+                    icon={'expand_more'}
+                    size={'40px'}
+                    color={colors.white}
+                />
 
-            {open &&
-                <OptionsContainer>
-                    {renderOptions()}
-                </OptionsContainer>
-            }
-        </Container >
+                {open &&
+                    <OptionsContainer>
+                        {renderOptions()}
+                    </OptionsContainer>
+                }
+            </Container >
+        </BodyOutline>
     );
 }
 

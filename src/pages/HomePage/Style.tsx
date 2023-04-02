@@ -7,7 +7,9 @@ export const Container = styled.div`
     overflow-y: auto;
     flex-flow: column;
     align-items: center;
-    padding: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 5%;
 `;
 
 export const CharactersList = styled.div`
@@ -15,6 +17,7 @@ export const CharactersList = styled.div`
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
+    gap: 16px;
 `;
 
 export const Header = styled.div`
@@ -32,8 +35,37 @@ export const FilterTagsContainer = styled.div`
     width: 57.5%;
     gap: 8px;
     flex-wrap: nowrap;
-    overflow-x: hidden;
-    margin-bottom: 10vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-bottom: 4vh;
     margin-top: 8px;
-    height: 34px;
+    height: 50px;
+`;
+
+export const Logo = styled.img`
+    width: 30%;
+    top: 0;
+
+    @media (max-width: 750px){
+        width: 50%;
+    }
 `
+export const Footer = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    align-items: center;
+    margin-left: -5%;
+
+    @media(max-width: 750px){
+        margin-left: -12%;
+    }
+`;
+
+export const body = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    align-items: center;
+    margin-left: -5%;
+`;

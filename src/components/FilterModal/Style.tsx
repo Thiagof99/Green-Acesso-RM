@@ -32,13 +32,18 @@ export const Backdrop = styled.div`
 export const StyledModal = styled.div`
     display: flex;
     z-index: 100;
-    background: ${colors.secondary};
+    background: ${colors.primary};
     position: relative;
     margin: auto;
     border-radius: 8px;
     flex-direction: column;
     padding: 16px;
     gap: 8px;
+    max-width: 340px;
+
+    @media (max-width: 750px){
+        width: 95vw;
+    }
 `;
 
 export const Header = styled.div`
@@ -117,6 +122,6 @@ export const ModalButton = styled.div<ButtonProps>`
 
       :hover {
         background-color: ${props => props.type === 'primary' ? 'transparent' : colors.white};
-        color: ${props => props.type === 'primary' ? colors.white : colors.secondary};
+        color: ${props => props.type === 'primary' ? colors.white : colors.primary};
     }
 `;

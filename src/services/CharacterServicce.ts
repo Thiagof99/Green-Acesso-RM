@@ -58,6 +58,17 @@ class CharacterService extends ApiRequest {
             throw apiResponse.error;
         }
     }
+
+    getCharacter = async (id?: string) => {
+        try {
+            const response = await this.getRequest({ endPoint: 'api/character', id: id });
+            const character = Character.factoryCharacter(response.data);
+            return { 'character': character }
+        } catch (error) {
+            const apiResponse = ApiResponse.factoryApiResponse(error as any);
+            throw apiResponse.error;
+        }
+    }
 }
 
 const characterService = CharacterService.getInstance();

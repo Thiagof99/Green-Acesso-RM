@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import CharacterCard from "../../components/CharacterCard/Index";
 import Pagination from "../../components/Pagination/Index";
 import SearchBar from "../../components/SearchBar/Index";
-import { Container, CharactersList, Header, FilterTagsContainer } from "./Style";
+import { Container, CharactersList, Header, FilterTagsContainer, Logo, Footer } from "./Style";
 import Loading from "../../components/Loading/Index";
 import Dropdown from "../../components/Dropdown/Index";
 import FilterModal from "../../components/FilterModal/Index";
 import FilterTag from "../../components/FilterTag/Index";
+import Character from "../../models/CaracterModel";
 
 export interface Filters {
     type: string;
@@ -17,7 +18,7 @@ export interface Filters {
 const HomePage = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [data, setData] = useState<any[]>([]);
+    const [data, setData] = useState<Character[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [searchedWord, setSearchedWord] = useState<string>('');
@@ -29,6 +30,7 @@ const HomePage = () => {
 
     const getCharactersHandle = async (page: string, filters: Filters[], name: string) => {
         setIsLoading(true);
+        window.scrollTo(0, 0);
         const characters = await characterService.getCharacters(page, filters, name);
         setData(characters.characters);
         setTotalPages(characters.pages);
@@ -58,6 +60,7 @@ const HomePage = () => {
                 type={character.type}
                 gender={character.gender}
                 image={character.image}
+                id={character.id}
             />
         ));
     };
@@ -131,8 +134,10 @@ const HomePage = () => {
         console.log(totalPages, typeof (totalPages))
     };
 
+
     return (
         <Container>
+            <Logo src={require("../../assets/Rick-And-Morty-Logo.png")} />
             <Header>
                 <Dropdown label="Filtrar" options={['Status', 'Espécie', 'Tipo', 'Gênero']} onSelect={selectFilter}></Dropdown>
                 <SearchBar setSearchedWord={setSearchedWord} buttonFunction={search} active={searchButton} />
@@ -145,7 +150,9 @@ const HomePage = () => {
                     <CharactersList>
                         {renderCards()}
                     </CharactersList>
-                    <Pagination currentPage={currentPage} total={totalPages} onPageChange={(page) => { setCurrentPage(page) }} />
+                    <Footer>
+                        <Pagination currentPage={currentPage} total={totalPages} onPageChange={(page) => { setCurrentPage(page) }} />
+                    </Footer>
                 </>)
             }
             <FilterModal isShown={filterModalToggle} hide={toggleModal} headerText={selectedFilter} addFilter={addFilter} setInput={setFilterName} />

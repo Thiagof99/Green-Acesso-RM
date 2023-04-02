@@ -4,19 +4,20 @@ const BASEURL = 'https://rickandmortyapi.com';
 
 class ApiRequestService {
 
-    private createUrl(endPoint?: string, params?: string) {
+    private createUrl(endPoint?: string, params?: string, id?: string) {
         let url = ''
 
         if (BASEURL) url += BASEURL;
         if (endPoint) url += `/${endPoint}`;
         if (params) url += `?${params}`;
+        if (id) url += `/${id}`;
 
         return url;
     }
 
-    async getRequest({ endPoint, params }: { endPoint: string, params?: string }) {
+    async getRequest({ endPoint, params, id }: { endPoint: string, params?: string, id?: string }) {
         try {
-            const url = this.createUrl(endPoint, params);
+            const url = this.createUrl(endPoint, params, id);
             const response = await axios.get(url);
             return response;
         } catch (error) {

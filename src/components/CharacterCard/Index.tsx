@@ -1,4 +1,5 @@
-import { CharacterImage, CharacterName, Container } from "./Style";
+import { useNavigate } from "react-router-dom";
+import { BodyOutline, CharacterImage, CharacterName, Container } from "./Style";
 
 interface CharacterCardInterface {
     name?: string;
@@ -7,6 +8,7 @@ interface CharacterCardInterface {
     type?: string;
     gender?: string;
     image?: string;
+    id?: number;
 }
 
 const CharacterCard = ({
@@ -15,15 +17,24 @@ const CharacterCard = ({
     species,
     type,
     gender,
-    image
+    image,
+    id
 }: CharacterCardInterface) => {
+    const navigate = useNavigate();
+
+    function handleClick() {
+        navigate(`/character/${id?.toString()}`);
+    }
+
     return (
-        <Container>
-            <CharacterImage src={image} alt="new"/>
-            <CharacterName>
-                {name}
-            </CharacterName>
-        </Container>
+        <BodyOutline>
+            <Container onClick={handleClick}>
+                <CharacterImage src={image} alt="new" />
+                <CharacterName>
+                    {name}
+                </CharacterName>
+            </Container>
+        </BodyOutline>
     );
 }
 
