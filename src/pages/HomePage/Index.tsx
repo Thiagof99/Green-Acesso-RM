@@ -9,7 +9,7 @@ import Dropdown from "../../components/Dropdown/Index";
 import FilterModal from "../../components/FilterModal/Index";
 import FilterTag from "../../components/FilterTag/Index";
 
-interface Filters {
+export interface Filters {
     type: string;
     filter: string;
 }
@@ -27,22 +27,22 @@ const HomePage = () => {
     const [selectedFilter, setSelectedFilter] = useState<string>('');
     const [filterName, setFilterName] = useState<string>('');
 
-    const getCharactersHandle = async (page: string) => {
+    const getCharactersHandle = async (page: string, filters: Filters[], name: string) => {
         setIsLoading(true);
-        const characters = await characterService.getCharacters(page);
+        const characters = await characterService.getCharacters(page, filters, name);
         setData(characters.characters);
         setTotalPages(characters.pages);
         setIsLoading(false);
-    }
+    };
 
     useEffect(() => {
-        getCharactersHandle(currentPage.toString());
-    }, [currentPage])
+        getCharactersHandle(currentPage.toString(), filters, searchedWord);
+    }, [currentPage]);
 
-    const logCharacters = () => {
-        console.log(filters);
-        console.log(filters.length)
-    }
+    useEffect(() => {
+        setCurrentPage(1);
+        getCharactersHandle('1', filters, searchedWord);
+    }, [filters.length]);
 
     const renderCards = () => {
         if (data.length === 0) {
@@ -60,7 +60,7 @@ const HomePage = () => {
                 image={character.image}
             />
         ));
-    }
+    };
 
     const renderFilters = () => {
         if (filters.length === 0) {
@@ -76,7 +76,7 @@ const HomePage = () => {
                 }}
             />
         ));
-    }
+    };
 
     const activateButton = () => {
         if (filters.length === 0 && searchedWord === '') {
@@ -84,7 +84,7 @@ const HomePage = () => {
         } else {
             setSearchButton(true);
         }
-    }
+    };
 
     useEffect(() => {
         activateButton()
@@ -124,22 +124,28 @@ const HomePage = () => {
         }
     };
 
+    const search = () => {
+        setCurrentPage(1);
+        getCharactersHandle(currentPage.toString(), filters, searchedWord);
+        setSearchButton(false);
+        console.log(totalPages, typeof (totalPages))
+    };
+
     return (
         <Container>
             <Header>
                 <Dropdown label="Filtrar" options={['Status', 'Espécie', 'Tipo', 'Gênero']} onSelect={selectFilter}></Dropdown>
-                <SearchBar setSearchedWord={setSearchedWord} buttonFunction={logCharacters} active={searchButton} />
+                <SearchBar setSearchedWord={setSearchedWord} buttonFunction={search} active={searchButton} />
             </Header>
             <FilterTagsContainer>
                 {renderFilters()}
             </FilterTagsContainer>
-            <Loading></Loading>
             {isLoading ? <Loading /> : (
                 <>
                     <CharactersList>
                         {renderCards()}
                     </CharactersList>
-                    <Pagination currentPage={currentPage} total={42} onPageChange={(page) => { setCurrentPage(page) }} />
+                    <Pagination currentPage={currentPage} total={totalPages} onPageChange={(page) => { setCurrentPage(page) }} />
                 </>)
             }
             <FilterModal isShown={filterModalToggle} hide={toggleModal} headerText={selectedFilter} addFilter={addFilter} setInput={setFilterName} />

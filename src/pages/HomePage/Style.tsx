@@ -35,4 +35,5 @@ export const FilterTagsContainer = styled.div`
     overflow-x: hidden;
     margin-bottom: 10vh;
     margin-top: 8px;
+    height: 34px;
 `

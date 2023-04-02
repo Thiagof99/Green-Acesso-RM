@@ -1,5 +1,6 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { validateGender, validateInputSize, validateStatus } from '../../validations/FilterValidations';
 import { Wrapper, Header, StyledModal, Title, HeaderButtons, Backdrop, Body, InputFilter, Footer, ModalButton } from './Style';
 
 export interface FilterModalInterface {
@@ -17,24 +18,77 @@ const FilterModal = ({
     addFilter,
     setInput
 }: FilterModalInterface) => {
+    const [inputValue, setInputValue] = useState<string>('');
+    const [invalid, setInvalid] = useState<boolean>(false);
+
+    const showInfo = () => {
+        if (headerText === 'Status') {
+            window.alert('Filtrar pelo status atual do personagem (alive, dead ou unknown).');
+        } else if (headerText === 'Espécie') {
+            window.alert('Filtrar pela espécie do personagem (human, alien, etc...).');
+        } else if (headerText === 'Tipo') {
+            window.alert('Filtrar pelo tipo do personagem (robot, fish, etc...).');
+        } else if (headerText === 'Gênero') {
+            window.alert('Filtrar pelo Gênero do personagem (female, male, genderless ou unknown).')
+        }
+    };
+
+    const validateFilter = () => {
+        if (!validateInputSize(inputValue)) {
+            setInvalid(true);
+            window.alert('Digite o filtro desejado para que possa adicioná-lo');
+            return false;
+        }
+        if (headerText === 'Status' && !validateStatus(inputValue)) {
+            setInvalid(true);
+            showInfo();
+            return false;
+        } else if (headerText === 'Gênero' && !validateGender(inputValue)) {
+            setInvalid(true);
+            showInfo();
+            return false;
+        }
+        setInputValue('');
+        return true;
+    };
+
+    const addValidFilter = () => {
+        if (validateFilter()) {
+            addFilter();
+        }
+    };
+
+    useEffect(() => {
+        setInvalid(false);
+    }, [inputValue]);
+
+    const hideAndClear = () => {
+        hide();
+        setInputValue('');
+    };
+
     const modal = (
         <React.Fragment>
-            <Backdrop onClick={hide} />
+            <Backdrop onClick={hideAndClear} />
             <Wrapper>
                 <StyledModal>
                     <Header>
-                        <HeaderButtons>?</HeaderButtons>
+                        <HeaderButtons onClick={showInfo}>?</HeaderButtons>
                         <Title>{headerText}</Title>
-                        <HeaderButtons onClick={hide}>X</HeaderButtons>
+                        <HeaderButtons onClick={hideAndClear}>X</HeaderButtons>
                     </Header>
                     <Body>
-                        <InputFilter placeholder={headerText} onChange={(filter) => { setInput(filter.target.value) }} />
+                        <InputFilter invalid={invalid} value={inputValue} placeholder={headerText} onChange={(filter) => {
+                            setInput(filter.target.value);
+                            setInputValue(filter.target.value);
+                        }
+                        } />
                     </Body>
                     <Footer>
-                        <ModalButton onClick={hide}>
+                        <ModalButton onClick={hideAndClear}>
                             Cancelar
                         </ModalButton>
-                        <ModalButton onClick={addFilter}>
+                        <ModalButton onClick={addValidFilter}>
                             Adicionar
                         </ModalButton>
                     </Footer>

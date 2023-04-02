@@ -2,7 +2,11 @@ import styled from 'styled-components';
 import { colors } from '../../styles/colors';
 
 interface ButtonProps {
-  type?: string;
+    type?: string;
+}
+
+interface InputProps {
+    invalid?: boolean;
 }
 
 export const Wrapper = styled.div`
@@ -67,7 +71,7 @@ export const Body = styled.div`
     width: 100%;
 `;
 
-export const InputFilter = styled.input`
+export const InputFilter = styled.input<InputProps>`
     background-color: transparent;
     width: 90%;
     font-size: 18px;
@@ -75,7 +79,7 @@ export const InputFilter = styled.input`
     padding-left: 16px;
     outline: none;
     border-width: 3px;
-    border-color: ${colors.white};
+    border-color: ${props => props.invalid ? 'red' : colors.white};
     border-radius: 30px;
     border-style: solid;
     color: ${colors.white};
