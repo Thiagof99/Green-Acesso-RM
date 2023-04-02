@@ -7,7 +7,7 @@ interface DropdownInterface {
     label: string;
     options: any[];
     width?: string;
-    onSelect: (value: string) => void
+    onSelect: (value: string) => void;
 }
 
 const Dropdown = ({ label, options, width, onSelect }: DropdownInterface) => {

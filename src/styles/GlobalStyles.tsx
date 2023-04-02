@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-image: url(${img});
     font-family: 'Comic Sans MS', cursive, sans-serif;
-
+    background-color: #19162b;
   }
 `;
 

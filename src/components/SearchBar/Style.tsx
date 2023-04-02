@@ -15,6 +15,7 @@ export const Container = styled.div`
 export const SearchButton = styled.div<Props>`
     display: flex;
     width: 15%;
+    max-width: 120px;
     min-width: 34px;
     height: 44px;
     background-color: ${props => props.active ? colors.portal : 'transparent'};

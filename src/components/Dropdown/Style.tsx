@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { colors } from "../../styles/colors";
 
 export const Container = styled.button`
-  width: 20%;
+  width: 15%;
   height: 44px;
   border-radius: 30px;
   border-style: none;
@@ -14,7 +14,7 @@ export const Container = styled.button`
   justify-content: space-between;
   position: relative;
   min-width: 100px;
-  max-width: 150px;
+  max-width: 120px;
 `;
 
 export const Label = styled.p`

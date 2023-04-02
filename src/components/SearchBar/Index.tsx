@@ -5,7 +5,7 @@ import { colors } from "../../styles/colors";
 interface SearchBarInterface {
     setSearchedWord: (searchedWord: string) => void;
     buttonFunction: VoidFunction;
-    active: boolean
+    active: boolean;
 }
 
 const SearchBar = ({

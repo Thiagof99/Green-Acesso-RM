@@ -8,14 +8,14 @@ export const Container = styled.div`
     flex-flow: column;
     align-items: center;
     padding: 5%;
-`
+`;
 
 export const CharactersList = styled.div`
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
-`
+`;
 
 export const Header = styled.div`
     display: flex;
@@ -24,5 +24,15 @@ export const Header = styled.div`
     width: 100vw;
     align-items: center;
     gap: 8px;
+`;
+
+export const FilterTagsContainer = styled.div`
+    display: flex;
+    flex-flow: row;
+    width: 57.5%;
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
     margin-bottom: 10vh;
+    margin-top: 8px;
 `
