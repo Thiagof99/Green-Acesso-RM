@@ -133,11 +133,11 @@ const HomePage = () => {
         setSearchButton(false);
         console.log(totalPages, typeof (totalPages))
     };
-
+    
 
     return (
         <Container>
-            <Logo src={require("../../assets/Rick-And-Morty-Logo.png")} />
+            <Logo src={require("../../assets/Rick-And-Morty-Logo.png")}/>
             <Header>
                 <Dropdown label="Filtrar" options={['Status', 'Espécie', 'Tipo', 'Gênero']} onSelect={selectFilter}></Dropdown>
                 <SearchBar setSearchedWord={setSearchedWord} buttonFunction={search} active={searchButton} />
@@ -151,7 +151,7 @@ const HomePage = () => {
                         {renderCards()}
                     </CharactersList>
                     <Footer>
-                        <Pagination currentPage={currentPage} total={totalPages} onPageChange={(page) => { setCurrentPage(page) }} />
+                    <Pagination currentPage={currentPage} total={totalPages} onPageChange={(page) => { setCurrentPage(page) }} />
                     </Footer>
                 </>)
             }
